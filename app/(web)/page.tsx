@@ -1,0 +1,10 @@
+import { ThemeToggle } from "@/components/shared/theme-toggle"
+
+export default function Home() {
+  return (
+    <div>
+      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, totam.</h1>
+      <ThemeToggle />
+    </div>
+  )
+}
