@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google"
+import { Inter, Noto_Sans_Arabic } from "next/font/google"
 import { PropsWithChildren } from "react"
 import { ThemeProvider } from "@/components/shared/theme-provider"
 import { DirectionProvider } from "@/components/ui/direction"
@@ -7,6 +7,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
+const noto = Noto_Sans_Arabic({ subsets: ["arabic"], variable: "--font-noto" })
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,9 +16,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={cn(inter.variable)} dir="ltr" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={cn(inter.variable, noto.variable)}
+      dir="rtl"
+      suppressHydrationWarning
+    >
       <body>
-        <DirectionProvider dir="ltr">
+        <DirectionProvider dir="rtl">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

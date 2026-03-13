@@ -68,6 +68,10 @@ export interface Config {
   blocks: {};
   collections: {
     media: Media;
+    stores: Store;
+    branches: Branch;
+    menu_categories: MenuCategory;
+    items: Item;
     'payload-kv': PayloadKv;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
@@ -77,6 +81,10 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     media: MediaSelect<false> | MediaSelect<true>;
+    stores: StoresSelect<false> | StoresSelect<true>;
+    branches: BranchesSelect<false> | BranchesSelect<true>;
+    menu_categories: MenuCategoriesSelect<false> | MenuCategoriesSelect<true>;
+    items: ItemsSelect<false> | ItemsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -138,6 +146,107 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stores".
+ */
+export interface Store {
+  id: number;
+  name: string;
+  slug: string;
+  storeType: 'restaurant' | 'drinks' | 'supermarket' | 'pharmacy' | 'bakery' | 'butcher';
+  description?: string | null;
+  logo?: (number | null) | Media;
+  coverImage?: (number | null) | Media;
+  isAvailable?: boolean | null;
+  isFeatured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "branches".
+ */
+export interface Branch {
+  id: number;
+  store: number | Store;
+  name: string;
+  address?: string | null;
+  city?: string | null;
+  mapsUrl?: string | null;
+  phones?:
+    | {
+        label?: string | null;
+        number?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  workingHours: {
+    open?: string | null;
+    close?: string | null;
+  };
+  isAvailable?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu_categories".
+ */
+export interface MenuCategory {
+  id: number;
+  store: number | Store;
+  name: string;
+  description?: string | null;
+  displayOrder?: number | null;
+  isAvailable?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "items".
+ */
+export interface Item {
+  id: number;
+  store: number | Store;
+  category?: (number | null) | MenuCategory;
+  name: string;
+  description?: string | null;
+  /**
+   * Main image for the item
+   */
+  image?: (number | null) | Media;
+  pricingType: 'fixed' | 'sizes' | 'weight';
+  price?: number | null;
+  sizes?: {
+    S: number;
+    M: number;
+    L: number;
+  };
+  weightUnit?: ('gram' | 'kg') | null;
+  pricePerUnit?: number | null;
+  foodType?:
+    | (
+        | 'pizza'
+        | 'burger'
+        | 'fried_chicken'
+        | 'grilled'
+        | 'egyptian'
+        | 'pasta'
+        | 'seafood'
+        | 'sandwiches'
+        | 'shawarma'
+        | 'asian'
+        | 'desserts'
+        | 'other'
+      )
+    | null;
+  drinkType?: ('hot' | 'cold' | 'juice' | 'soft') | null;
+  isAvailable?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -188,6 +297,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'stores';
+        value: number | Store;
+      } | null)
+    | ({
+        relationTo: 'branches';
+        value: number | Branch;
+      } | null)
+    | ({
+        relationTo: 'menu_categories';
+        value: number | MenuCategory;
+      } | null)
+    | ({
+        relationTo: 'items';
+        value: number | Item;
       } | null)
     | ({
         relationTo: 'users';
@@ -252,6 +377,89 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stores_select".
+ */
+export interface StoresSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  storeType?: T;
+  description?: T;
+  logo?: T;
+  coverImage?: T;
+  isAvailable?: T;
+  isFeatured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "branches_select".
+ */
+export interface BranchesSelect<T extends boolean = true> {
+  store?: T;
+  name?: T;
+  address?: T;
+  city?: T;
+  mapsUrl?: T;
+  phones?:
+    | T
+    | {
+        label?: T;
+        number?: T;
+        id?: T;
+      };
+  workingHours?:
+    | T
+    | {
+        open?: T;
+        close?: T;
+      };
+  isAvailable?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu_categories_select".
+ */
+export interface MenuCategoriesSelect<T extends boolean = true> {
+  store?: T;
+  name?: T;
+  description?: T;
+  displayOrder?: T;
+  isAvailable?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "items_select".
+ */
+export interface ItemsSelect<T extends boolean = true> {
+  store?: T;
+  category?: T;
+  name?: T;
+  description?: T;
+  image?: T;
+  pricingType?: T;
+  price?: T;
+  sizes?:
+    | T
+    | {
+        S?: T;
+        M?: T;
+        L?: T;
+      };
+  weightUnit?: T;
+  pricePerUnit?: T;
+  foodType?: T;
+  drinkType?: T;
+  isAvailable?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
