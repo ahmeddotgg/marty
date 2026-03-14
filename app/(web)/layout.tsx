@@ -24,13 +24,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
       suppressHydrationWarning
     >
       <body>
-        <DirectionProvider dir="rtl">
+        <DirectionProvider direction="rtl">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
+            <div className="fixed size-full bg-background gradient -z-99" />
             <Header />
             {children}
           </ThemeProvider>

@@ -1,7 +1,9 @@
 "use client"
 import { TextAlignJustify } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { ThemeToggle } from "./theme-toggle"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -12,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger
 } from "@/components/ui/sheet"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function MobileSheet({
   links
@@ -19,6 +22,14 @@ export default function MobileSheet({
   links?: { title: string; href: string }[]
 }) {
   const [open, setOpen] = useState(false)
+  const isMobile = useIsMobile()
+
+  useEffect(() => {
+    if (!isMobile) {
+      setOpen(false)
+    }
+  }, [isMobile])
+
   return (
     <Sheet open={open} onOpenChange={(open) => setOpen(open)}>
       <SheetTrigger
@@ -28,12 +39,21 @@ export default function MobileSheet({
           </Button>
         }
       />
-      <SheetContent>
+      <SheetContent showCloseButton={false}>
         <SheetHeader>
-          <SheetTitle></SheetTitle>
+          <SheetTitle>
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={100}
+              height={60}
+              className="w-auto max-w-22"
+            />
+          </SheetTitle>
           <SheetDescription></SheetDescription>
           <SheetClose />
         </SheetHeader>
+        <hr />
         <div className="gap-8 p-4 flex flex-col">
           {links?.map((link) => (
             <Link
@@ -45,6 +65,9 @@ export default function MobileSheet({
               {link.title}
             </Link>
           ))}
+        </div>
+        <div className="px-4">
+          <ThemeToggle />
         </div>
       </SheetContent>
     </Sheet>
