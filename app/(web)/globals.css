@@ -103,7 +103,7 @@
   --ring: oklch(0.56 0.021 213.5);
   --chart-1: oklch(0.879 0.169 91.605);
   --chart-2: oklch(0.769 0.188 70.08);
-  --chart-3: oklch(0.666 0.179 58.318);
+  --chart-3: oklch(66.557% 0.1691 52.898);
   --chart-4: oklch(0.555 0.163 48.998);
   --chart-5: oklch(0.473 0.137 46.201);
   --sidebar: oklch(0.218 0.008 223.9);
@@ -121,7 +121,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply antialiased min-h-svh bg-background text-foreground;
+    @apply antialiased min-h-svh bg-background gradient text-foreground;
   }
   html {
     @apply min-h-svh font-noto;
@@ -130,4 +130,21 @@
 
 @utility wrapper {
   @apply md:max-w-6xl mx-auto px-4;
+}
+
+@utility gradient {
+  background: radial-gradient(
+    ellipse 80% 80% at 5% 5%,
+    oklch(0.879 0.169 91.605 / 0.12),
+    oklch(0.666 0.179 58.318 / 0.12),
+    transparent 60%
+  );
+  @variant dark {
+    background: radial-gradient(
+      ellipse 80% 80% at 5% 5%,
+      oklch(0.666 0.179 58.318 / 0.05),
+      oklch(0.879 0.169 91.605 / 0.05),
+      transparent 60%
+    );
+  }
 }

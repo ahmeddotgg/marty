@@ -61,9 +61,7 @@ function SheetContent({
         {showCloseButton && (
           <SheetPrimitive.Close
             data-slot="sheet-close"
-            render={
-              <Button variant="ghost" className="absolute top-4 left-4" size="icon-sm" />
-            }
+            render={<Button variant="outline" size="icon-lg" />}
           >
             <XIcon />
             <span className="sr-only">Close</span>
@@ -98,9 +96,21 @@ function SheetTitle({ className, ...props }: SheetPrimitive.Title.Props) {
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn("font-medium text-foreground", className)}
+      className={cn(
+        "font-medium text-foreground flex items-center justify-between",
+        className
+      )}
       {...props}
-    />
+    >
+      {props.children}
+      <SheetPrimitive.Close
+        data-slot="sheet-close"
+        render={<Button variant="outline" size="icon" />}
+      >
+        <XIcon />
+        <span className="sr-only">Close</span>
+      </SheetPrimitive.Close>
+    </SheetPrimitive.Title>
   )
 }
 
