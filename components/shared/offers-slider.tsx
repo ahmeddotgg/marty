@@ -43,7 +43,7 @@ export default function OffersSlider() {
     >
       <CarouselContent className="w-full shadow-2xl">
         {images.map((img) => (
-          <CarouselItem key={img.alt} className="relative h-100 w-full">
+          <CarouselItem key={img.alt} className="relative h-88 w-full">
             <Image
               src={img.src}
               alt={img.alt}
