@@ -70,7 +70,6 @@ export default async function BestStores() {
         <div className="grid grid-cols-1 gap-3 min-[567px]:grid-cols-2 lg:grid-cols-3">
           {stores.docs.map((store) => {
             const logo = store.logo as Media
-            const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL
             return (
               <ItemGroup
                 key={store.name}
@@ -85,7 +84,7 @@ export default async function BestStores() {
                       <ItemMedia variant="image" className="size-28">
                         {logo.url && (
                           <Image
-                            src={`${baseUrl}${logo.url}`}
+                            src={logo.url}
                             alt={store.name}
                             width={Number(logo.width)}
                             height={Number(logo.height)}
