@@ -1,3 +1,3 @@
 export default function Stores() {
-  return <div>Stores</div>
+  return <div className="wrapper">Stores</div>
 }

@@ -2,14 +2,30 @@
 
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
 
-const images = [
-  { src: "/offer-1.jpg", alt: "Offer 1" },
-  { src: "/offer-2.jpg", alt: "Offer 2" },
-  { src: "/offer-3.jpg", alt: "Offer 3" }
-]
+type Img = { src: string; alt: string }
+
 export default function OffersSlider() {
+  const [images, setImages] = useState<Img[]>([])
+
+  useEffect(() => {
+    let mounted = true
+    fetch("/api/offers")
+      .then((res) => res.json())
+      .then((files: string[]) => {
+        if (!mounted || !Array.isArray(files)) return
+        setImages(
+          files.map((name, i) => ({ src: `/offers/${name}`, alt: `Offer ${i + 1}` }))
+        )
+      })
+      .catch(() => {})
+    return () => {
+      mounted = false
+    }
+  }, [])
+
   return (
     <Carousel
       opts={{
@@ -22,20 +38,20 @@ export default function OffersSlider() {
           delay: 4000
         })
       ]}
-      className="w-full shadow-lg my-8"
+      className="wrapper my-8 w-full"
       dir="rtl"
     >
-      <CarouselContent>
+      <CarouselContent className="w-full shadow-2xl">
         {images.map((img) => (
-          <CarouselItem key={img.alt}>
-            <div className="aspect-17/8 relative shadow-md">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                className="size-full rounded-md object-cover"
-                fill
-              />
-            </div>
+          <CarouselItem key={img.alt} className="relative h-100 w-full">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              className="rounded-md object-cover object-top"
+              loading="eager"
+              sizes="100vw"
+            />
           </CarouselItem>
         ))}
       </CarouselContent>

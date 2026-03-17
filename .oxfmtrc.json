@@ -13,13 +13,13 @@
       ["value-internal", "value-parent", "value-sibling", "value-index"],
       { "newlinesBetween": false },
       "type-import",
-      "unknown",
-    ],
+      "unknown"
+    ]
   },
   "experimentalTailwindcss": {
-    "stylesheet": "./app/globals.css",
+    "stylesheet": "./app/(web)/globals.css",
     "functions": ["clsx", "cn"],
     "preserveWhitespace": false,
-    "preserveDuplicates": false,
-  },
+    "preserveDuplicates": false
+  }
 }

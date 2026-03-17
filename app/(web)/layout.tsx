@@ -31,7 +31,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             enableSystem
             disableTransitionOnChange
           >
-            <div className="fixed size-full bg-background gradient -z-99" />
+            <div className="fixed -z-99 size-full bg-background gradient" />
             <Header />
             {children}
           </ThemeProvider>

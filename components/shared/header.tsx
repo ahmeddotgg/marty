@@ -8,30 +8,29 @@ import MobileSheet from "./mobile-sheet"
 import { ThemeToggle } from "./theme-toggle"
 import { cn } from "@/lib/utils"
 
+export const links = [
+  { title: "الرئيسية", href: "/" },
+  { title: "المتاجر", href: "/stores" },
+  { title: "العروض", href: "/offers" }
+]
+
 export default function Header() {
   const pathname = usePathname()
-  const links = [
-    { title: "الرئيسية", href: "/" },
-    { title: "المتاجر", href: "/stores" },
-    { title: "العروض", href: "/offers" },
-    { title: "خدماتنا", href: "/services" },
-    { title: "اتصل بنا", href: "/contact" }
-  ]
 
   return (
     <div className="wrapper">
-      <div className="flex items-center py-4 gap-3 sm:gap-6">
+      <div className="flex items-center gap-3 py-4 sm:gap-6">
         <div className="md:hidden">
-          <MobileSheet links={links} />
+          <MobileSheet />
         </div>
         <Image
           src="/logo.svg"
           alt="Logo"
           width={100}
           height={60}
-          className="me-auto md:me-0 w-auto max-w-28"
+          className="me-auto w-auto max-w-28 md:me-0"
         />
-        <div className="flex-1 gap-4 font-medium hidden md:flex">
+        <div className="hidden flex-1 gap-4 font-medium md:flex">
           {links.map((link) => {
             const active =
               pathname === link.href ||
@@ -42,23 +41,34 @@ export default function Header() {
                 key={link.title}
                 className={cn(
                   active && "text-primary",
-                  "hover:text-primary transition-colors"
+                  "transition-colors hover:text-primary"
                 )}
               >
                 {link.title}
               </Link>
             )
           })}
+          <a
+            href="https://wa.me/201288249293"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-primary"
+          >
+            أتصل بنا
+          </a>
         </div>
         <div className="flex items-center gap-1">
           <a
-            href="#"
+            href="https://marty.ink/"
+            target="_blank"
+            rel="noopener noreferrer"
             className={cn(
               buttonVariants({ className: "sm:px-6 font-semibold", size: "lg" })
             )}
           >
             <IconDeviceMobile className="size-5" />
-            نزل التطبيق
+            حمل التطبيق
+            <span className="hidden sm:block">الأن</span>
           </a>
           <ThemeToggle className="hidden md:inline-flex" />
         </div>

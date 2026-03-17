@@ -121,7 +121,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply antialiased min-h-svh bg-background gradient text-foreground;
+    @apply min-h-svh bg-background text-foreground antialiased gradient;
   }
   html {
     @apply min-h-svh font-noto;
@@ -129,7 +129,7 @@
 }
 
 @utility wrapper {
-  @apply md:max-w-6xl mx-auto px-4;
+  @apply mx-auto px-4 md:max-w-6xl;
 }
 
 @utility gradient {
@@ -141,9 +141,8 @@
   );
   @variant dark {
     background: radial-gradient(
-      ellipse 80% 80% at 5% 5%,
-      oklch(0.666 0.179 58.318 / 0.05),
-      oklch(0.879 0.169 91.605 / 0.05),
+      ellipse 60% 60% at 5% 5%,
+      oklch(0.666 0.179 58.318 / 0.066),
       transparent 60%
     );
   }

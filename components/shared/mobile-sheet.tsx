@@ -1,10 +1,13 @@
 "use client"
+import { IconDeviceMobile } from "@tabler/icons-react"
 import { TextAlignJustify } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { Separator } from "../ui/separator"
+import { links } from "./header"
 import { ThemeToggle } from "./theme-toggle"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Sheet,
   SheetClose,
@@ -15,12 +18,9 @@ import {
   SheetTrigger
 } from "@/components/ui/sheet"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { cn } from "@/lib/utils"
 
-export default function MobileSheet({
-  links
-}: {
-  links?: { title: string; href: string }[]
-}) {
+export default function MobileSheet() {
   const [open, setOpen] = useState(false)
   const isMobile = useIsMobile()
 
@@ -53,20 +53,40 @@ export default function MobileSheet({
           <SheetDescription></SheetDescription>
           <SheetClose />
         </SheetHeader>
-        <hr />
-        <div className="gap-8 p-4 flex flex-col">
-          {links?.map((link) => (
+        <Separator />
+        <div className="flex flex-col gap-8 p-4">
+          {links.map((link) => (
             <Link
               href={link.href}
               key={link.title}
-              className="hover:text-primary transition-colors font-bold text-lg"
+              className="text-lg font-bold transition-colors hover:text-primary"
               onClick={() => setOpen(false)}
             >
               {link.title}
             </Link>
           ))}
+          <a
+            href="https://wa.me/201288249293"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-lg font-bold transition-colors hover:text-primary"
+          >
+            أتصل بنا
+          </a>
         </div>
-        <div className="px-4">
+        <Separator />
+        <div className="flex items-center gap-1 px-4">
+          <a
+            href="https://marty.ink/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ className: "sm:px-6 font-semibold flex-1", size: "lg" })
+            )}
+          >
+            <IconDeviceMobile className="size-5" />
+            حمل التطبيق الأن
+          </a>
           <ThemeToggle />
         </div>
       </SheetContent>
