@@ -81,7 +81,6 @@ export const Items: CollectionConfig = {
       ]
     },
 
-    // 🔹 Weight-Based Pricing
     {
       name: "weightUnit",
       type: "select",
@@ -101,7 +100,6 @@ export const Items: CollectionConfig = {
       }
     },
 
-    // Optional type fields for restaurant / drinks
     {
       name: "foodType",
       type: "select",

@@ -5,8 +5,9 @@ import sharp from "sharp"
 import { fileURLToPath } from "url"
 import { Branches } from "./collections/branches"
 import { Items } from "./collections/items"
-import { Media } from "./collections/media"
+import { Media } from "./collections/Media"
 import { MenuCategories } from "./collections/menu_categories"
+import { Offers } from "./collections/offers"
 import { Stores } from "./collections/stores"
 
 const filename = fileURLToPath(import.meta.url)
@@ -18,7 +19,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
-  collections: [Media, Stores, Branches, MenuCategories, Items],
+  collections: [Media, Stores, Branches, MenuCategories, Items, Offers],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts")

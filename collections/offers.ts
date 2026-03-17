@@ -30,19 +30,22 @@ export const Offers: CollectionConfig = {
       }
     },
     {
-      name: "branch",
-      type: "relationship",
-      relationTo: "branches",
-      required: false,
-      admin: {
-        description: "Optional: link offer to a specific branch"
-      }
-    },
-    {
       name: "item",
       type: "relationship",
       relationTo: "items",
       required: false,
+      filterOptions: ({ data }) => {
+        if (!data?.store) return false
+
+        return {
+          store: {
+            equals: data.store
+          },
+          isAvailable: {
+            equals: true
+          }
+        }
+      },
       admin: {
         description: "Optional: link offer to a specific item"
       }
